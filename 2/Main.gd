@@ -7,7 +7,6 @@ onready var turrets = [
 	$Turret3
 ]
 
-
 func _ready():
 	player.initialize(self)
 	for t in turrets:

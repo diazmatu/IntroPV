@@ -6,20 +6,12 @@ export (PackedScene) var arm_scene:PackedScene
 var container:Node
 
 export (float) var speed = 200 #Pixeles
+export (float) var aceleration = 2000
+export (float) var friction = 0.15
+var velocity:float = 0
 
 export (float) var cadenceTimer = 0.25
 var can_shoot = true
-
-#var proyectile_scene:PackedScene = load("res://entities/player/PlayerProyectile.tscn")
-#export (PackedScene) var proyectile_scene:PackedScene
-
-#func _ready():
-#	arm = arm_scene.instance()
-#	container.add_child(arm)
-#	arm_scene.global_position = self.position
-
-#func _ready():
-#	arm = $Arm
 
 func initialize(main_container):
 	arm = arm_scene.instance()
@@ -28,7 +20,7 @@ func initialize(main_container):
 	arm.container = main_container
 
 func _physics_process(delta):
-	# Manera básica
+# Manera básica
 #	var direction:int = 0
 #	if Input.is_action_pressed("move_left"):
 #		direction = -1
@@ -55,7 +47,13 @@ func _physics_process(delta):
 
 	# Manera optimizada
 	var direction_optimized:int = int(Input.is_action_pressed("move_right")) - int(Input.is_action_pressed("move_left"))
-	position.x += direction_optimized * speed * delta
+	
+	if direction_optimized != 0:
+		velocity = clamp(velocity + (direction_optimized * aceleration), -speed, speed)
+	else:
+		velocity = lerp(velocity, 0, friction) if abs(velocity) > 1 else 0
+	
+	position.x += velocity * delta
 
 func _on_Cadence_timeout():
 	can_shoot = true
