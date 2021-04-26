@@ -1,23 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://entities/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/textures/player.png" type="Texture" id=2]
-[ext_resource path="res://assets/textures/cannon.png" type="Texture" id=3]
-[ext_resource path="res://entities/player/Arm.gd" type="Script" id=4]
-[ext_resource path="res://entities/player/PlayerProyectile.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/player/PlayerArm.tscn" type="PackedScene" id=6]
 
 [node name="Player" type="Sprite"]
 position = Vector2( -0.0635071, 0.165405 )
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
+arm_scene = ExtResource( 6 )
 
-[node name="Arm" type="Sprite" parent="."]
-position = Vector2( 0.0798645, -0.176777 )
-texture = ExtResource( 3 )
-centered = false
-offset = Vector2( 32, -9 )
-script = ExtResource( 4 )
-proyectile_scene = ExtResource( 5 )
-
-[node name="FirePosition" type="Position2D" parent="Arm"]
-position = Vector2( 65.6867, 0 )
+[node name="Cadence" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+[connection signal="timeout" from="Cadence" to="." method="_on_Cadence_timeout"]

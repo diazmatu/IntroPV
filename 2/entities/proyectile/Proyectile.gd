@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var timer = $DeleteTimer
+export (float) var deleteTime = 0
 
 export (float) var speed
 
@@ -9,6 +10,7 @@ var direction:Vector2
 func initialize(fire_direction:Vector2, initial_position:Vector2):
 	global_position = initial_position
 	direction = fire_direction
+	timer.wait_time = deleteTime
 	timer.start()
 	
 func _physics_process(delta):
