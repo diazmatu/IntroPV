@@ -19,3 +19,7 @@ func _physics_process(delta):
 func _on_DeleteTimer_timeout():
 	get_parent().remove_child(self)
 	queue_free()
+
+
+func _on_KinematicBody2D_body_entered(body):
+	get_parent().remove_child(self)
