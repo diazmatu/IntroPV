@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://entities/turret/Turret.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/turret.png" type="Texture" id=2]
+[ext_resource path="res://entities/turret/ArmTurret.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 12.0447, 28.4152 )
+
+[node name="Turret" type="Sprite"]
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
+arm_scene = ExtResource( 3 )
+
+[node name="Cadence" type="Timer" parent="."]
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+shape = SubResource( 1 )
+[connection signal="timeout" from="Cadence" to="." method="_on_Cadence_timeout"]
