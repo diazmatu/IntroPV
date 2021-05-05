@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://entities/Projectile/Projectile.gd" type="Script" id=1]
+
+
+[node name="Proyectile" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="ProyectileAsset" type="Sprite" parent="."]
+
+[node name="DeleteTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="ProjectileShape" type="Area2D" parent="."]
+
+[node name="ProjestileCollision" type="CollisionShape2D" parent="ProjectileShape"]
+[connection signal="timeout" from="DeleteTimer" to="." method="_on_DeleteTimer_timeout"]
+[connection signal="body_entered" from="ProjectileShape" to="." method="_on_KinematicBody2D_body_entered"]

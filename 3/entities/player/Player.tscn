@@ -1,31 +1,29 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://entities/player/Player.gd" type="Script" id=1]
+[ext_resource path="res://entities/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/textures/player.png" type="Texture" id=2]
-[ext_resource path="res://assets/textures/cannon.png" type="Texture" id=3]
-[ext_resource path="res://entities/player/Cannon.gd" type="Script" id=4]
-[ext_resource path="res://entities/player/PlayerProjectile.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/Player/PlayerArm.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 32.0635, 31.6654 )
+extents = Vector2( 30.1109, 30.0651 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( -0.0635071, 0.165405 )
 script = ExtResource( 1 )
+arm_scene = ExtResource( 6 )
+speed = 500.0
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="PlayerAsset" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 
-[node name="Cannon" type="Sprite" parent="."]
-texture = ExtResource( 3 )
-script = ExtResource( 4 )
-projectile_scene = ExtResource( 5 )
+[node name="FireCadence" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
 
-[node name="CannonTip" type="Position2D" parent="Cannon"]
-position = Vector2( 15, 0 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="PlayerCamera" type="Camera2D" parent="."]
+position = Vector2( 100.051, -198.214 )
 current = true
+[connection signal="timeout" from="FireCadence" to="." method="_on_Cadence_timeout"]

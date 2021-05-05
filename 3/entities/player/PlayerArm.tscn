@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://entities/Arm/Arm.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/Player/PlayerProjectile.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/textures/cannon.png" type="Texture" id=3]
+
+
+
+[node name="Arm" instance=ExtResource( 1 )]
+proyectile_scene = ExtResource( 2 )
+
+[node name="ArmAsset" parent="." index="0"]
+position = Vector2( 31, -9 )
+texture = ExtResource( 3 )
+
+[node name="FirePosition" parent="." index="1"]
+position = Vector2( 65.2189, 3.8147e-06 )

@@ -1,47 +1,185 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/textures/background.png" type="Texture" id=2]
-[ext_resource path="res://Main.gd" type="Script" id=3]
-[ext_resource path="res://entities/enemies/Turret.tscn" type="PackedScene" id=4]
-[ext_resource path="res://entities/enemies/TurretsSpawner.gd" type="Script" id=5]
-[ext_resource path="res://Floor.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/textures/green_circle.png" type="Texture" id=7]
+[ext_resource path="res://assets/textures/floor.png" type="Texture" id=3]
+[ext_resource path="res://entities/Turret/Turret.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Main.gd" type="Script" id=5]
+[ext_resource path="res://entities/Turret/TurretsSpawner.gd" type="Script" id=6]
+[ext_resource path="res://assets/textures/brown_square.png" type="Texture" id=7]
+[ext_resource path="res://assets/textures/green_circle.png" type="Texture" id=8]
+[ext_resource path="res://assets/textures/jumpable_platform.png" type="Texture" id=9]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 71.9007
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 112.914, 110.399 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 433.58, 125.099 )
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 248.348
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 30.8815, 30.7627 )
+
+[sub_resource type="SegmentShape2D" id=2]
+a = Vector2( -138.649, 3.43704 )
+b = Vector2( 100.851, 3.43704 )
+
+[sub_resource type="SegmentShape2D" id=4]
+a = Vector2( 256, 8 )
+b = Vector2( 0, 8 )
+
+[sub_resource type="SegmentShape2D" id=3]
+a = Vector2( -21.0756, 296.273 )
+b = Vector2( -21.0756, -351.727 )
+
+[sub_resource type="SegmentShape2D" id=5]
+a = Vector2( 0, -336 )
+b = Vector2( 0, 8 )
 
 [node name="Main" type="Node"]
-script = ExtResource( 3 )
+script = ExtResource( 5 )
 
-[node name="Background" type="TextureRect" parent="."]
-anchor_right = 1.0
+[node name="Level" type="Node" parent="."]
+
+[node name="Background" type="TextureRect" parent="Level"]
+anchor_right = 3.52
 anchor_bottom = 1.0
-margin_left = -18.0
-margin_right = 1772.0
-margin_bottom = 7.0
+margin_left = -218.63
+margin_top = -205.005
+margin_right = 32.3696
+margin_bottom = -4.00452
 texture = ExtResource( 2 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 413.003, 395.272 )
-
-[node name="Floor" parent="." instance=ExtResource( 6 )]
-
-[node name="TurretsSpawner" type="Node" parent="."]
-script = ExtResource( 5 )
-turret_scene = ExtResource( 4 )
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-
-[node name="Sprite" type="Sprite" parent="RigidBody2D"]
-position = Vector2( 612.454, 176.939 )
-scale = Vector2( 0.300332, 0.296591 )
+[node name="Mud" type="Sprite" parent="Level"]
+position = Vector2( 750.847, 486.852 )
+rotation = -0.349066
+scale = Vector2( 1.47556, 0.526563 )
 texture = ExtResource( 7 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2( 612.277, 177.119 )
+[node name="Ground" type="StaticBody2D" parent="Level/Mud"]
+
+[node name="MudCollision" type="CollisionShape2D" parent="Level/Mud/Ground"]
+shape = SubResource( 6 )
+
+[node name="Floor" type="Sprite" parent="Level"]
+position = Vector2( 1280, 544.072 )
+scale = Vector2( 38.7879, 1.69916 )
+texture = ExtResource( 3 )
+
+[node name="Ground" type="StaticBody2D" parent="Level/Floor"]
+position = Vector2( -0.0359879, 0.0487976 )
+scale = Vector2( 0.0762701, 0.261587 )
+
+[node name="GroundCollision" type="CollisionShape2D" parent="Level/Floor/Ground"]
+position = Vector2( -0.183838, -0.0179138 )
 shape = SubResource( 1 )
+
+[node name="HighFloor" type="Sprite" parent="Level"]
+position = Vector2( 1118.74, 486.425 )
+scale = Vector2( 7.0303, 3.39504 )
+texture = ExtResource( 3 )
+
+[node name="Ground" type="StaticBody2D" parent="Level/HighFloor"]
+position = Vector2( -0.0359879, 0.0487976 )
+scale = Vector2( 0.0762701, 0.261587 )
+
+[node name="GroundCollision" type="CollisionShape2D" parent="Level/HighFloor/Ground"]
+position = Vector2( -0.183838, -0.0179138 )
+shape = SubResource( 1 )
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Level"]
+position = Vector2( 1770.57, 125.775 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="Level/RigidBody2D"]
+position = Vector2( 0.0888672, 0.180054 )
+scale = Vector2( 0.107196, 0.107196 )
+texture = ExtResource( 8 )
+
+[node name="BallCollision" type="CollisionShape2D" parent="Level/RigidBody2D"]
+position = Vector2( 0.207031, 0.176758 )
+scale = Vector2( 0.107196, 0.107196 )
+shape = SubResource( 7 )
+
+[node name="Trampoline" type="Sprite" parent="Level"]
+position = Vector2( 1442.23, 469.309 )
+scale = Vector2( 2.75223, 0.559167 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Level/Trampoline"]
+
+[node name="TrampolineCollision" type="CollisionShape2D" parent="Level/Trampoline/StaticBody2D"]
+shape = SubResource( 8 )
+
+[node name="TurretsSpawner" type="Node" parent="."]
+script = ExtResource( 6 )
+turret_scene = ExtResource( 4 )
+
+[node name="Control" type="Control" parent="TurretsSpawner"]
+anchor_left = 0.047
+anchor_top = -0.338
+anchor_right = 3.172
+anchor_bottom = 0.667
+margin_left = 0.399998
+margin_top = -0.199982
+margin_right = 0.399902
+margin_bottom = -0.200043
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewportContainer" type="ViewportContainer" parent="TurretsSpawner/Control"]
+anchor_left = -0.001
+anchor_top = 0.003
+anchor_right = 0.992
+anchor_bottom = 0.966
+margin_left = 0.518
+margin_top = 0.131
+margin_right = 0.143799
+margin_bottom = 0.182007
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport" type="Viewport" parent="TurretsSpawner/Control/ViewportContainer"]
+size = Vector2( 2500, 600 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 72.6188, 384.593 )
+speed = 700.0
+aceleration = 400.0
+friction = 0.05
+
+[node name="Limits" type="Area2D" parent="."]
+position = Vector2( 30.4074, -4.98323 )
+
+[node name="BottomLimitL" type="CollisionShape2D" parent="Limits"]
+position = Vector2( -104, 600 )
+shape = SubResource( 2 )
+
+[node name="BottomLimitR" type="CollisionShape2D" parent="Limits"]
+position = Vector2( 2560, 592 )
+shape = SubResource( 4 )
+
+[node name="LeftLimit" type="CollisionShape2D" parent="Limits"]
+position = Vector2( -234.924, 303.727 )
+shape = SubResource( 3 )
+
+[node name="RightLimit" type="CollisionShape2D" parent="Limits"]
+position = Vector2( 2816, 592 )
+shape = SubResource( 5 )
+[connection signal="body_entered" from="Limits" to="." method="_on_Limits_body_entered"]
