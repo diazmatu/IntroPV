@@ -1,0 +1,61 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://entities/player/Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/textures/player/girl_spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://assets/textures/player/slimeGreen.png" type="Texture" id=3]
+[ext_resource path="res://entities/player/Cannon.gd" type="Script" id=4]
+[ext_resource path="res://entities/player/PlayerProjectile.tscn" type="PackedScene" id=5]
+[ext_resource path="res://entities/player/RIP.tres" type="Animation" id=6]
+[ext_resource path="res://entities/player/Idle.tres" type="Animation" id=7]
+[ext_resource path="res://entities/player/Run.tres" type="Animation" id=8]
+[ext_resource path="res://entities/player/Jump.tres" type="Animation" id=9]
+[ext_resource path="res://assets/textures/player/raygunPurpleBig.png" type="Texture" id=10]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 6750, 2990 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 11.6401, 29.936 )
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 0.332581, 0.334839 )
+collision_layer = 2
+collision_mask = 3
+script = ExtResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
+anims/Idle = ExtResource( 7 )
+anims/Jump = ExtResource( 9 )
+anims/RIP = ExtResource( 6 )
+anims/Run = ExtResource( 8 )
+
+[node name="Body" type="Sprite" parent="."]
+position = Vector2( 0.607269, -0.00485229 )
+scale = Vector2( 0.214484, 0.214484 )
+texture = SubResource( 1 )
+vframes = 8
+hframes = 15
+frame = 75
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -8.11636, -20.2778 )
+scale = Vector2( 0.468363, 0.45936 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Cannon" type="Sprite" parent="Sprite"]
+texture = ExtResource( 10 )
+script = ExtResource( 4 )
+projectile_scene = ExtResource( 5 )
+
+[node name="CannonTip" type="Position2D" parent="Sprite/Cannon"]
+position = Vector2( 15, 0 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -6.67422, 1.64819 )
+shape = SubResource( 2 )
