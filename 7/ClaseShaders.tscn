@@ -11,9 +11,9 @@
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 5 )
 shader_param/width = 0.01
-shader_param/progress = 0.5
-shader_param/color_min = null
-shader_param/color_max = null
+shader_param/progress = 0.9
+shader_param/color_min = Color( 0.745098, 0.105882, 0.105882, 1 )
+shader_param/color_max = Color( 0.156863, 0.866667, 0.152941, 1 )
 
 [node name="ClaseShaders" type="Node2D"]
 

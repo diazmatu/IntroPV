@@ -8,7 +8,6 @@ radius = 7.87897
 
 [node name="Proyectile" instance=ExtResource( 1 )]
 deleteTime = 7.0
-speed = 800.0
 
 [node name="ProyectileAsset" parent="." index="0"]
 texture = ExtResource( 2 )

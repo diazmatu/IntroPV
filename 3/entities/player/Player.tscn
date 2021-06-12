@@ -11,7 +11,7 @@ extents = Vector2( 30.1109, 30.0651 )
 position = Vector2( -0.0635071, 0.165405 )
 script = ExtResource( 1 )
 arm_scene = ExtResource( 6 )
-speed = 500.0
+speed = 1.0
 
 [node name="PlayerAsset" type="Sprite" parent="."]
 texture = ExtResource( 2 )

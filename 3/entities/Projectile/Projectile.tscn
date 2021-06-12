@@ -2,7 +2,6 @@
 
 [ext_resource path="res://entities/Projectile/Projectile.gd" type="Script" id=1]
 
-
 [node name="Proyectile" type="Node2D"]
 script = ExtResource( 1 )
 
